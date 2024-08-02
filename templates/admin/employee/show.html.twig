@@ -1,0 +1,46 @@
+{% extends 'admin/backend_layout.html.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/editGoal.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="text-center text-color-grey mt-15 text-uppercase">
+        <h2>{{ user.name }}</h2>
+    </div>
+   
+    <div class="float-right  mt-2">
+        <a class="btn btn-primary w-5" 
+            data-bs-toggle="modal" 
+            data-url="{{ path('goal_create', { 'id': user.id }) }}"
+            data-bs-target="#goalsCategoryModal"><i class="fa-solid fa-plus"></i> Add
+        </a>
+    </div>
+
+    <div>
+        <h2 class="goals text-color-grey text-uppercase">Goals</h2>
+        <table class="table m-auto goals-list" >
+            <!-- Table header -->
+            <thead>
+                <tr class="text-color-grey text-center">
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Completed_at</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody id="goals-table" data-total-items="{{ totalGoals }}" data-user-id="{{ user.id }}">
+                {% for goal in goals %}
+                    {% include 'goals/list-items.html.twig' %}
+                {% else %}
+                    <tr class="no-results-row">
+                        <td colspan="5" class="no-records text-center text-color-grey">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{ include('admin/modal/_goals_category.html.twig') }}
+{% endblock %}

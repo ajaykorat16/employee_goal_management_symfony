@@ -1,0 +1,35 @@
+{% extends 'admin/backend_layout.html.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/editGoal.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class = "mt-15">
+        <h2 class="goals text-color-grey text-uppercase">{{ user.name }}'s Goals</h2>
+        <table class="table m-auto goals-list" >
+            <!-- Table header -->
+            <thead>
+                <tr class="text-color-grey text-center">
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Completed_at</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th class="text-center">Action</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody id="goals-table" data-total-items="{{ totalGoals }}" data-user-id="{{ user.id }}">
+                {% for goal in goals %}
+                    {% include 'goals/list-items.html.twig' %}
+                {% else %}
+                    <tr class="no-results-row">
+                        <td colspan="5" class="no-records text-center text-color-grey">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

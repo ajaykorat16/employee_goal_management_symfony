@@ -1,0 +1,27 @@
+<tr class="align-middle" id="goal-row-{{ goal.id }}">
+    <td class="text-center">{{ goal.category.name }}</td>
+    <td class="text-center">{{ goal.description }}</td>
+    <td class="text-center">
+            {% if goal.completedDate %}
+                <span class="text-success">Completed</span>
+            {% else %}
+                <button id="mark-completed-btn" class="btn btn-success" data-completed-date="{{ "now"|date("Y-m-d H:i:s") }}" data-goal-id= {{ goal.id }}>Mark as Completed</button>
+            {% endif %}
+    </td>
+    <td class="text-center">
+        {% if goal.completedDate %}
+            {{ goal.completedDate|date("Y-m-d H:i:s") }}
+        {% else %}
+            -
+        {% endif %}
+    </td>
+    {% if is_granted('ROLE_ADMIN') %}
+        <td class="text-center client-action">
+            <a href="#" 
+                data-url="{{ path('goal_edit', { 'id': goal.id }) }}"
+                data-bs-toggle="modal" 
+                data-bs-target="#goalsCategoryModal"><i class="fa-solid fa-pencil"></i>
+            </a>
+        </td>
+    {% endif %}
+</tr>

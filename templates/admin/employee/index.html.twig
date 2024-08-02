@@ -1,0 +1,43 @@
+{% extends 'admin/backend_layout.html.twig' %}
+
+{% block javascripts %}
+     <script src="{{ asset('js/delete.js') }}"></script>
+     <script>
+         Delete.onShowModal();
+     </script>
+{% endblock %}
+
+{% block body %}
+    <div class="text-color-grey mt-15 text-uppercase">
+        <h2>Employees</h2>
+    </div>
+   
+    <div class="float-right mt-2">
+        <a class="btn btn-primary w-5" href="{{ path('admin_create') }}"><i class="fa-solid fa-plus"></i> Add</a>
+    </div>
+
+    <div>
+        <table class="table m-auto" >
+            <!-- Table header -->
+            <thead>
+                <tr class="text-color-grey text-center">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody id="employees-list">
+                {% for user in users %}
+                    {% include 'admin/employee/list-items.html.twig' %}
+                    {{ include('admin/modal/_delete_modal.html.twig', { 'user': user }) }}
+
+                {% else %}
+                    <tr class="no-results-row">
+                        <td colspan="3" class="no-records text-center text-color-grey">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

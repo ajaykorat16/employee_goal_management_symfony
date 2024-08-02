@@ -1,0 +1,34 @@
+{% extends 'admin/backend_layout.html.twig' %}
+
+{% block body %}
+    <div class="text-color-grey mt-15 text-uppercase">
+        <h2>Feedback</h2>
+    </div>
+    <div class="float-right mt-2">
+        <a class="btn btn-primary w-5" href="{{ path('feedback_create') }}"><i class="fa-solid fa-plus"></i> send feedback</a>
+    </div>
+    <div>
+        <table class="table m-auto" id="feedbackList">
+            <!-- Table header -->
+            <thead>
+            <tr class="text-color-grey ">
+                <th>Category</th>
+                <th>Reported by</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody id="feedback-list" data-total-items="{{ totalFeedback }}">
+                {% if feedbacks is not empty %}
+                    {% for feedback in feedbacks %}
+                        {% include 'feedback/list-items.html.twig' %}
+                    {% endfor %}
+                {% else %}
+                    <tr class="no-results-row">
+                        <td colspan="3" class="no-records text-center" style="color: grey;">no records found</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

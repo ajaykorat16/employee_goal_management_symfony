@@ -1,0 +1,55 @@
+{% extends 'admin/backend_layout.html.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/validation.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="text-color-grey mt-15 text-uppercase">
+        <h2>Feedback</h2>
+    </div>
+    <div class="col-md-10 mt-54">
+    {{ form_start(feedback_form, {'attr': {'id': 'feedback-form','method':'POST','novalidate': 'novalidate'} }) }}
+        <div class="align-center">
+            <div class="form-group mb-4 input-container">
+                <div class="input-label">
+                    {{ form_label(feedback_form.category) }}
+                </div>
+                {{ form_widget(feedback_form.category, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(feedback_form.category) }}
+            </div>
+            
+            <div class="form-group mb-4 input-container">
+                <div class="input-label">
+                    {{ form_label(feedback_form.user) }}
+                </div>
+                 {{ form_widget(feedback_form.user, {'attr': {'class': 'form-control'}}) }}
+                 {{ form_errors(feedback_form.user) }}
+            </div>
+
+            <div class="form-group mb-4 input-container">
+                <div class="input-label">
+                    {{ form_label(feedback_form.description) }}
+                </div>
+                {{ form_widget(feedback_form.description, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(feedback_form.description) }}
+            </div>
+
+            <div class="mt-5 mb-5">
+                {{ form_widget(feedback_form.save) }}
+            </div>
+        </div>
+    {{ form_end(feedback_form) }}    
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-center mt-15 ">
+            <a href="{{ path('admin_list') }}"><i class="fa-solid fa-left-long"></i>  Back to list</a>
+        </div>  
+    {% elseif is_granted('ROLE_EMPLOYEE') %}
+        <div class="text-center mt-15 ">
+            <a href="{{ path('feedback_list') }}"><i class="fa-solid fa-left-long"></i>  Back to list</a>
+        </div>
+    {% endif %}
+    
+{% endblock %}

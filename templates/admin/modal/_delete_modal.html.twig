@@ -1,0 +1,19 @@
+<div class="modal fade delete-modal" id="deleteModal" role="dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header modal-header-default">
+                <h5 class="modal-title">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="deleteName"></strong>?</p>
+                <input type="hidden" id="deleteId" name="id" value="">
+                <input type="hidden" id="deleteEntity" name="entity" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default mr-10" data-bs-dismiss="modal">Close</button>
+                <a href="{{ path('admin_delete', {'id': user.id} )}}" class="btn btn-danger" id="deleteButton">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

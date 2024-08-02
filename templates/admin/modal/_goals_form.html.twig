@@ -1,0 +1,15 @@
+{{ form_start(goals_form, {'attr': {'id': 'goals-form', 'method': 'POST', 'action': action, 'novalidate': 'novalidate'} }) }}    
+    <div class="form-group mb-4 input-container">
+        {{ form_widget(goals_form.category, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(goals_form.category) }}
+    </div>
+    <div class="form-group mb-4 input-container">
+        {{ form_widget(goals_form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(goals_form.description) }}
+    </div>
+    {{ form_widget(goals_form.reporter) }}
+<div class="modal-footer">
+    {{ form_widget(goals_form.save, {'attr': {'class': 'btn btn-success'}}) }}
+    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+</div>
+{{ form_end(goals_form) }}
