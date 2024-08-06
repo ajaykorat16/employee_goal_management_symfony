@@ -4,13 +4,12 @@ body {
   }
   
   a {
-    color: #ffc451;
-    text-decoration: none;
+    color: gray !important;
+    text-decoration: none !important;
   }
   
   a:hover {
-    color: #ffd584;
-    text-decoration: none;
+    color: white !important;
   }
   
   h1,
@@ -20,6 +19,17 @@ body {
   h5,
   h6 {
     font-family: "Raleway", sans-serif;
+    color: #fff !important;
+    font-weight: bold !important;
+
+  }
+
+  .form-group {
+    color: white;
+  }
+
+  small {
+    color: white;
   }
   
   /*--------------------------------------------------------------
@@ -62,11 +72,11 @@ body {
     color: #ffc451;
   }
   
-  #hero h2 {
+  /* #hero h2 {
     color: rgba(255, 255, 255, 0.9);
     margin: 10px 0 0 0;
     font-size: 24px;
-  }
+  } */
   
   #hero .icon-box {
     padding: 30px 20px;
@@ -141,7 +151,46 @@ body {
   .alert-warning .alert-link {
     color: #523e02 !important;
   }
-  
-  a:hover {
-    color: white !important;
+
+  .alert-success {
+    --bs-alert-color: #0f5132;
+    --bs-alert-bg: #d1e7dd;
+    --bs-alert-border-color: #badbcc;
+    position: absolute;
   }
+
+  .alert-success .alert-link {
+    color: #0c4128;
+  }
+
+  .forgotPasword {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  #forgot-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+.sent_email {
+  width: 298px !important;
+}
+
+ul {
+  color: red;
+}
+
+.flash-messages {
+  display: flex;
+}
+
+.alert {
+  width: 100% !important;
+  text-align: center;
+}
+

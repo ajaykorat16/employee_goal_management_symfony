@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Event listener for showing the modal
     $('#goalsCategoryModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var url = button.data('url'); // Extract URL from data-url attribute
@@ -61,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
     $(document).on('click', '#mark-completed-btn', function () {
         var button = $(this);
         var completedDate = button.data('completed-date');
-        var goalId = button.data('goal-id');
 	    var url = button.data('url');
 
         $.ajax({
@@ -71,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 completedDate: completedDate
             },
             success: function(response) {
-                location.reload(); // Reload the page or update the page content
+                location.reload(); 
             },
             error: function(xhr, status, error) {
                 alert('An error occurred: ' + xhr.responseText);

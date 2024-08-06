@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\ForgotPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -27,6 +29,23 @@ class LoginController extends AbstractController
         return $this->render('login/index.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
             'last_username' => $authenticationUtils->getLastUsername(),
+        ]);
+    }
+
+    #[Route('forgot-password', name: 'forgot_password')]
+    public function request(Request $request, AuthenticationUtils $authenticationUtils): Response
+    {
+        $form = $this->createForm(ForgotPasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', sprintf('Please check your email. A reset link has been send successfully.'));
+            return $this->redirectToRoute('forgot_password');
+        }
+
+        return $this->render('login/forgotPassword.html.twig', [
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+            'requestForm' => $form->createView(),
         ]);
     }
 

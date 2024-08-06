@@ -5,13 +5,15 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EmployeeType extends AbstractType
@@ -41,16 +43,8 @@ class EmployeeType extends AbstractType
             ->add('department', TextType::class,[
                     'required' => true,
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'EMPLOYEE' => 'ROLE_EMPLOYEE',
-                ],
-                'expanded' => false,
-                'multiple' => false,
-                'attr' => ['class' => 'form-control'],
-                'choice_attr' => function($choiceValue) use ($options) {
-                    return $choiceValue === $options['selected_role'] ? ['selected' => 'selected'] : [];
-                },
+            ->add('roles', HiddenType::class, [
+                'data' => 'ROLE_EMPLOYEE'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [
@@ -60,7 +54,13 @@ class EmployeeType extends AbstractType
                 'label' => 'Save'
             ])
         ;
-
+        
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $data = $event->getData();
+            $data['roles'] = 'ROLE_EMPLOYEE';
+            $event->setData($data);
+        });
+        
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(
             function ($rolesAsArray) : string {
                 if (is_array($rolesAsArray)) {
@@ -81,8 +81,6 @@ class EmployeeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'selected_role' => null,
-            'password_value' => null,
         ]);
     }
 }

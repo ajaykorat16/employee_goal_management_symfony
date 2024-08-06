@@ -28,6 +28,10 @@ class IndexController extends AbstractController
     #[Route('', name: '_list', methods: ['GET'])]
     public function index(): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('admin/employee/index.html.twig',[
             'users' => $this->userRepository->getEmployees(),
         ]);
@@ -36,6 +40,10 @@ class IndexController extends AbstractController
     #[Route('/create', name: '_create')]
     public function create(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $user = new User();
         $form = $this->createForm(EmployeeType::class, $user);
         $form->handleRequest($request);
@@ -45,7 +53,6 @@ class IndexController extends AbstractController
             $password =  $form->get('password')->getData();
             $hashPassword = $passwordHasher->hashPassword($user,$password);
             $user->setPassword($hashPassword);
-
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
@@ -62,10 +69,11 @@ class IndexController extends AbstractController
     #[Route('/edit/{id}', name: '_edit')]
     public function edit(Request $request, User $user, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $selectedRole = $user->getRoles()[0];
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
 
-        $form = $this->createForm(EmployeeType::class, $user, 
-                ['selected_role' => $selectedRole]);
+        $form = $this->createForm(EmployeeType::class, $user);
 
         $form->handleRequest($request);
 
@@ -95,6 +103,10 @@ class IndexController extends AbstractController
     #[Route('/show/{id}', name: '_show')]
     public function show(User $user): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('admin/employee/show.html.twig', [
             'user' => $user,
             'goals' => $this->goalsRepository->getGoals(
@@ -109,6 +121,10 @@ class IndexController extends AbstractController
     #[Route('/delete/{id}', name: '_delete')]
     public function delete(User $user)
     {   
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $feedbacks = $user->getFeedback();
 
         $goals = $user->getGoal();
@@ -121,7 +137,6 @@ class IndexController extends AbstractController
             $this->entityManager->remove($feedback);
         }
         
-        // Now remove the user
         $this->entityManager->remove($user);
         $this->entityManager->flush();
     

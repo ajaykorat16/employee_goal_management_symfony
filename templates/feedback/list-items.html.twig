@@ -1,5 +1,13 @@
 <tr class="align-middle" id="feedback-row-{{ feedback.id }}">
     <td>{{ feedback.category.name }}</td>
     <td>{{ feedback.reporter.name }}</td>
-    <td >{{ feedback.description }}</td>
+    <td>
+        <div 
+            class="truncate-text" 
+            data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="{{ feedback.description  }}">
+            {{ feedback.description |length > 50 ? feedback.description |slice(0, 40) ~ '...' : feedback.description  }}
+        </div>
+    </td>
 </tr>

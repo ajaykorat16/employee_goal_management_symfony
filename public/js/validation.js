@@ -32,10 +32,11 @@ var Main = Main || {};
     }
 
     // Register remove 'is-invalid' events
-    removeInvalidClass("#employee_name, #employee_email, #employee_password_first, #employee_password_second, #employee_department, #feedback_description");
+    removeInvalidClass("#employee_name, #employee_email, #employee_password_first, #employee_password_second, #employee_department, #feedback_description, #forgot_password_email");
 
     saveHandler("#employee_save", "#employee_name", "#employee_email", "#employee_password_first", "#employee_password_second", "#employee_department");
     saveHandler("#feedback_save", "#feedback_description", null, null, null, null);
+    saveHandler("#forgot-password-submit", null, "#forgot_password_email", null, null, null);
 
     module.validate = function ($name, $emailSelector, $firstPsw, $secondPsw, $depmSelector, isCreatePage) {
         let isValid = true;

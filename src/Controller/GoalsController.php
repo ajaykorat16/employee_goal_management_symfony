@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/', name: 'goal')]
+#[Route('/goals', name: 'goal')]
 class GoalsController extends AbstractController
 {
     public function __construct(
@@ -26,9 +26,13 @@ class GoalsController extends AbstractController
     ){
     }
 
-    #[Route('/goal-list', name: '_list')]
+    #[Route('/list', name: '_list')]
     public function list(): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $user = $this->getUser();
 
         return $this->render('admin/employee/show.html.twig', [

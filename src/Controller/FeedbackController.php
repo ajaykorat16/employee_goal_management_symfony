@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('', name: 'feedback')]
+#[Route('/feedback', name: 'feedback')]
 class FeedbackController extends AbstractController
 {
     public function __construct(
@@ -24,9 +24,13 @@ class FeedbackController extends AbstractController
     ){
     }
 
-    #[Route('/feedback-list', name: '_list', methods: ['GET'])]
+    #[Route('/list', name: '_list', methods: ['GET'])]
     public function index(): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+        
 	    $currentUser = $this->getUser();
 
 	    if (!$currentUser) {
@@ -42,9 +46,13 @@ class FeedbackController extends AbstractController
         ]);
     }
 
-    #[Route('/feedback-create', name: '_create')]
+    #[Route('/create', name: '_create')]
     public function create(Request $request): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $feedback = new Feedback();
 
         $feedbackForm = $this->createForm(FeedbackType::class, $feedback);
@@ -60,15 +68,13 @@ class FeedbackController extends AbstractController
             $this->entityManager->flush();
 
             if ($this->security->isGranted('ROLE_ADMIN')) {
-
-                $this->addFlash('success', sprintf('Feedback has been created successfully.')); 
-                return $this->redirectToRoute('admin_list'); 
-
-            }elseif($this->security->isGranted('ROLE_EMPLOYEE')) {
-
-                return $this->redirectToRoute('feedback_list');  
-                $this->addFlash('success', sprintf('Feedback has been created successfully.'));
+                $this->addFlash('success', 'Feedback has been created successfully.');
+                return $this->redirectToRoute('admin_list');
+            } elseif ($this->security->isGranted('ROLE_EMPLOYEE')) {
+                $this->addFlash('success', 'Feedback has been created successfully.');
+                return $this->redirectToRoute('feedback_list');
             }
+            
         }
 
         return $this->render('feedback/create.html.twig', [
