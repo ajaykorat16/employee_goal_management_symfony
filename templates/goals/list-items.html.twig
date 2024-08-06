@@ -5,7 +5,7 @@
             {% if goal.completedDate %}
                 <span class="text-success">Completed</span>
             {% else %}
-                <button id="mark-completed-btn" class="btn btn-success" data-completed-date="{{ "now"|date("Y-m-d H:i:s") }}" data-goal-id= {{ goal.id }}>Mark as Completed</button>
+                <button id="mark-completed-btn" data-url={{ path("goal_upadteDate", {'id': goal.id})  }} class="btn btn-success" data-completed-date="{{ "now"|date("Y-m-d H:i:s") }}" data-goal-id= {{ goal.id }}>Mark as Completed</button>
             {% endif %}
     </td>
     <td class="text-center">

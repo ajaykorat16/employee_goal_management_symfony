@@ -4,7 +4,7 @@
     <td class="text-center client-action">
         <a href="{{ path('admin_show', {'id': user.id} )}}" ><i class="fa-solid fa-eye"></i></a>
         <a href="{{ path('admin_edit', {'id': user.id} ) }}"><i class="fa-solid fa-pencil"></i></a>
-        <a class="delete" data-id="{{ user.id }}" data-name="{{ user.name }}" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <a href="{{ path('admin_delete', {'id': user.id} ) }}">
             <i class="fa-solid fa-trash"></i>
         </a>
     </td>

@@ -27,7 +27,11 @@ class FeedbackController extends AbstractController
     #[Route('', name: '_list', methods: ['GET'])]
     public function index(): Response
     {
-        $currentUser = $this->getUser();
+	    $currentUser = $this->getUser();
+
+	    if (!$currentUser) {
+		    return $this->redirectToRoute("app_login");
+	    }
     
         $feedbacks = $this->feedbackRepository->findBy(['user' => $currentUser->getId()]);
     
