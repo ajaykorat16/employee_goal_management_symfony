@@ -30,7 +30,7 @@ class FeedbackController extends AbstractController
         if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('app_login');
         }
-        
+
 	    $currentUser = $this->getUser();
 
 	    if (!$currentUser) {
@@ -68,10 +68,10 @@ class FeedbackController extends AbstractController
             $this->entityManager->flush();
 
             if ($this->security->isGranted('ROLE_ADMIN')) {
-                $this->addFlash('success', 'Feedback has been created successfully.');
+                $this->addFlash('success', 'Feedback has been sent successfully.');
                 return $this->redirectToRoute('admin_list');
             } elseif ($this->security->isGranted('ROLE_EMPLOYEE')) {
-                $this->addFlash('success', 'Feedback has been created successfully.');
+                $this->addFlash('success', 'Feedback has been sent successfully.');
                 return $this->redirectToRoute('feedback_list');
             }
             

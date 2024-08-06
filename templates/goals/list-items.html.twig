@@ -21,8 +21,7 @@
                 data-url="{{ path('goal_edit', { 'id': goal.id }) }}"
                 data-bs-toggle="modal" 
                 data-bs-target="#goalsCategoryModal"
-                class="{% if goal.completedDate %}disabled{% endif %}"
-                {% if goal.completedDate %}aria-disabled="true"{% endif %}>
+                class="{% if goal.completedDate %}disabled{% endif %}">
                 <i class="fa-solid fa-pencil"></i>
             </a>
         </td>

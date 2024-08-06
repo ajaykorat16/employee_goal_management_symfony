@@ -32,7 +32,7 @@ class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('forgot-password', name: 'forgot_password')]
+    #[Route('/forgot-password', name: 'forgot_password')]
     public function request(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         $form = $this->createForm(ForgotPasswordType::class);

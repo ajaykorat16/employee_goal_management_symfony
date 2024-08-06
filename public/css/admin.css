@@ -1888,15 +1888,7 @@ body {
 }
 
 a.disabled {
-  pointer-events: none; 
-  color: #bdbaba;       
-  font-size: 16px;
-  text-decoration: none; 
-}
-
-a.disabled:hover {
-  cursor: no-drop;      
-  color: #bdbaba;      
+  visibility: hidden;
 }
 
 .truncate-text {
