@@ -97,8 +97,12 @@ class IndexController extends AbstractController
     {
         return $this->render('admin/employee/show.html.twig', [
             'user' => $user,
-            'goals' => $this->goalsRepository->findBy(['user' => $user->getId()]),
-            'totalGoals' => $this->goalsRepository->getTotalCountsGoals(),
+            'goals' => $this->goalsRepository->getGoals(
+                $user,
+                GoalsRepository::PAGE_SIZE,
+                GoalsRepository::OFFSET
+            ),
+            'totalGoals' => $this->goalsRepository->getTotalCountsGoals($user),
         ]);
     }
 

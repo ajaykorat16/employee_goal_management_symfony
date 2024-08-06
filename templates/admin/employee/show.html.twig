@@ -5,42 +5,48 @@
 {% endblock %}
 
 {% block body %}
-    <div class="text-center text-color-grey mt-15 text-uppercase">
-        <h2>{{ user.name }}</h2>
-    </div>
-   
-    <div class="float-right  mt-2">
-        <a class="btn btn-primary w-5" 
-            data-bs-toggle="modal" 
-            data-url="{{ path('goal_create', { 'id': user.id }) }}"
-            data-bs-target="#goalsCategoryModal"><i class="fa-solid fa-plus"></i> Add
-        </a>
-    </div>
+    <div class="mt-15">
+        {% if is_granted('ROLE_ADMIN') %}
+            <h2 class = "text-center text-color-grey text-uppercase">{{ user.name }}</h2>
 
-    <div>
-        <h2 class="goals text-color-grey text-uppercase">Goals</h2>
-        <table class="table m-auto goals-list" >
-            <!-- Table header -->
-            <thead>
-                <tr class="text-color-grey text-center">
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Completed_at</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <!-- Table body -->
-            <tbody id="goals-table" data-total-items="{{ totalGoals }}" data-user-id="{{ user.id }}">
-                {% for goal in goals %}
-                    {% include 'goals/list-items.html.twig' %}
-                {% else %}
-                    <tr class="no-results-row">
-                        <td colspan="5" class="no-records text-center text-color-grey">no records found</td>
+            <div class="float-right  mt-2">
+                <a class="btn btn-primary w-5" 
+                    data-bs-toggle="modal" 
+                    data-url="{{ path('goal_create', { 'id': user.id }) }}"
+                    data-bs-target="#goalsCategoryModal"><i class="fa-solid fa-plus"></i> Add
+                </a>
+            </div>
+            <h2 class="goals text-color-grey text-uppercase">Goals</h2>
+        {% elseif is_granted('ROLE_EMPLOYEE') %}
+            <h2 class="goals text-color-grey text-uppercase">{{ user.name }}'s Goals</h2>
+        {% endif %}
+
+            <table class="table m-auto employeeGoals" >
+                <!-- Table header -->
+                <thead>
+                    <tr class="text-color-grey text-center">
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Completed_at</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th class="text-center">Action</th>
+                        {% endif %}
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <!-- Table body -->
+                <tbody id="employeeGoalsList" data-total-items="{{ totalGoals }}" data-user-id="{{ user.id }}">
+                    {% for goal in goals %}
+                        {% include 'goals/list-items.html.twig' %}
+                    {% else %}
+                        <tr class="no-results-row">
+                            <td colspan="5" class="no-records text-center text-color-grey">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
     </div>
-    {{ include('admin/modal/_goals_category.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('admin/modal/_goals_category.html.twig') }}
+    {% endif %}
 {% endblock %}

@@ -1887,6 +1887,34 @@ body {
   font-size: x-large;
 }
 
+a.disabled {
+  pointer-events: none; 
+  color: #bdbaba;       
+  font-size: 16px;
+  cursor: no-drop;      
+  text-decoration: none; 
+}
+
+a.disabled:hover {
+  color: #bdbaba;      
+}
+
+.truncate-text {
+  display: inline-block;
+  max-width: 200px; /* Adjust the width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tooltip-inner {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  white-space: pre-wrap; /* Allow multiline text */
+}
+
 .save {
   width: 25%;
 }

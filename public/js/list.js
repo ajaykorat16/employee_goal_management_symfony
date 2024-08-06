@@ -6,8 +6,9 @@ var Main = Main || {};
 
     //----------- goalsList-load-more ---------------//
     $(window).on('scroll', function () {
-        let $table = $("#goals-list");
-        let totalItems = $("#goals-table").data('total-items');
+        let $table = $("#employeeGoals");
+        let totalItems = $("#employeeGoalsList").data('total-items');
+        let userId = $("employeeGoalsList").data('user-id');
         let url = 'admin_goal_load_more';
         module.listingLoader($table, totalItems, url);
     });

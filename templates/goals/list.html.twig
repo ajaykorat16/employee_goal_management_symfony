@@ -6,8 +6,7 @@
 
 {% block body %}
     <div class = "mt-15">
-        <h2 class="goals text-color-grey text-uppercase">{{ user.name }}'s Goals</h2>
-        <table class="table m-auto goals-list" >
+        <table class="table m-auto goalsList" >
             <!-- Table header -->
             <thead>
                 <tr class="text-color-grey text-center">
@@ -15,9 +14,7 @@
                     <th>Description</th>
                     <th>Status</th>
                     <th>Completed_at</th>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th class="text-center">Action</th>
-                    {% endif %}
+                    
                 </tr>
             </thead>
             <!-- Table body -->

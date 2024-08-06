@@ -24,7 +24,7 @@ class FeedbackController extends AbstractController
     ){
     }
 
-    #[Route('', name: '_list', methods: ['GET'])]
+    #[Route('/feedback-list', name: '_list', methods: ['GET'])]
     public function index(): Response
     {
         $currentUser = $this->getUser();
@@ -38,7 +38,7 @@ class FeedbackController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: '_create')]
+    #[Route('/feedback-create', name: '_create')]
     public function create(Request $request): Response
     {
         $feedback = new Feedback();

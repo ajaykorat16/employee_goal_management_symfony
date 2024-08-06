@@ -26,15 +26,19 @@ class GoalsController extends AbstractController
     ){
     }
 
-    #[Route('/list', name: '_list')]
+    #[Route('/goal-list', name: '_list')]
     public function list(): Response
     {
         $user = $this->getUser();
 
-        return $this->render('goals/list.html.twig', [
+        return $this->render('admin/employee/show.html.twig', [
             'user' => $user,
-            'goals' => $this->goalsRepository->findBy(['user' => $user->getId()]),
-            'totalGoals' => $this->goalsRepository->getTotalCountsGoals(),
+            'goals' => $this->goalsRepository->getGoals(
+                $user,
+                GoalsRepository::PAGE_SIZE,
+                GoalsRepository::OFFSET
+            ),
+            'totalGoals' => $this->goalsRepository->getTotalCountsGoals($user),
         ]);
     }
 
@@ -67,6 +71,8 @@ class GoalsController extends AbstractController
 
             $this->entityManager->persist($goal);
             $this->entityManager->flush();
+
+            $this->addFlash('success', 'Goal created successfully!');
 
             if ($request->isXmlHttpRequest()) {
                 return $this->json([
@@ -108,6 +114,8 @@ class GoalsController extends AbstractController
             $goal->setReporter($reporter);
             
             $this->entityManager->flush();
+
+            $this->addFlash('success', 'Goal Updated Successfully!');
 
             if ($request->isXmlHttpRequest()) {
                 return $this->json([

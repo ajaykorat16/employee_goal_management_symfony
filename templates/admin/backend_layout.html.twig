@@ -51,7 +51,7 @@
                                     Feedback
                                 </a>
                             {% elseif is_granted('ROLE_EMPLOYEE') %}
-                                <a class="nav-link collapsed" href="{{ path('goal_list')}}" >
+                                <a class="nav-link" href="{{ path('goal_list')}}" >
                                     <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                     Goals
                                 </a>
@@ -98,6 +98,7 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/fontawesome.js') }}"></script>
+    <script src="{{ asset('js/header.js') }}"></script>
     <script src="{{ asset('/bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
