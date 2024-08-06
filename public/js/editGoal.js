@@ -62,9 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var button = $(this);
         var completedDate = button.data('completed-date');
         var goalId = button.data('goal-id');
+	    var url = button.data('url');
 
         $.ajax({
-            url: '/update-date/' + goalId,
+            url: url,
             type: 'POST',
             data: {
                 completedDate: completedDate
