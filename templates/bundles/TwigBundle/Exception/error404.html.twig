@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     <div class="error-message">
+     <h2>Oops! The page you're looking for can't be found.</h2>
+            <p>
+                It looks like nothing was found at this location. You can logout and login again
+            </p>
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
+    </div>
+{% endblock %}

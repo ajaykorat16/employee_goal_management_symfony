@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="error-message">
+        <h1>Access Denied</h1>
+            <p>
+                You do not have the necessary permissions to access this page.
+            </p>
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
+    </div>
+{% endblock %}

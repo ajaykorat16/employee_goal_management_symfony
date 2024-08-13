@@ -1910,3 +1910,23 @@ a.disabled {
 .save {
   width: 25%;
 }
+
+.error {
+  background-color: #212529;
+}
+
+.error-message {
+  padding-top: 225px;
+  text-align: center;
+  height: 664px !important;
+  color: white;
+}
+
+.error-message h1 {
+  font-size: xxx-large !important;
+}
+
+.error-message .btn-primary {
+  color: black ;
+  font-weight: bold;
+}
